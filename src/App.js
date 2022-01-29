@@ -6,8 +6,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <UseState />
-      <ClassState />
+      <UseState name="UseState prop" />
+      <ClassState name="ClassState prop" />
     </div>
   );
 }
