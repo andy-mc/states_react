@@ -1,19 +1,15 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useEffect} from "react";
+import { useStateMany } from "./hooks/useStateMany";
 const SECURITY_CODE = "paradigma";
 
 const UseState = ({name}) => {
-  const [_state, _setState] = useState({
+  const [state, setState] = useStateMany({
     code:'',
     error: false,
     loading: false
   });
-
-  const setState = useCallback((state) => {
-    _setState({..._state, ...state})
-  }, [_state, _setState])
-
-  console.log('_state:', _state)
-  const {code, loading, error} = _state;
+  
+  const {code, loading, error} = state;
 
   useEffect(() => {
     if (loading) {
