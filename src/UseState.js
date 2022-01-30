@@ -5,16 +5,12 @@ const UseState = ({name}) => {
   const [loading, setLoading] = useState(false);
   
   useEffect(() => {
-    console.log('useEffect: init')
-    if(loading) {
+    if (loading) {
       setTimeout(() => {
-        console.log('setTimeout:inti')
         setLoading(false)
-        console.log('setTimeout:end')
       }, 3000);
     }
-    console.log('useEffect: end')
-  }, )
+  }, [loading])
 
   return (
     <div>
