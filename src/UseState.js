@@ -1,22 +1,28 @@
-import React, {useState, useEffect} from "react";
-
+import React, {useState, useEffect, useCallback} from "react";
 const SECURITY_CODE = "paradigma";
 
 const UseState = ({name}) => {
-  const [code, setCode] = useState('');
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  
+  const [_state, _setState] = useState({
+    code:'',
+    error: false,
+    loading: false
+  });
+
+  const setState = useCallback((state) => {
+    _setState({..._state, ...state})
+  }, [_state, _setState])
+
+  console.log('_state:', _state)
+  const {code, loading, error} = _state;
+
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
-        setLoading(false)
-        if (code !== SECURITY_CODE) {
-          setError(true)
-        } 
+        const is_code_valid = code === SECURITY_CODE;
+        setState({loading: false, error: !is_code_valid})
       }, 3000);
     }
-  }, [loading])
+  }, [loading, code, setState])
 
   return (
     <div>
@@ -29,14 +35,14 @@ const UseState = ({name}) => {
         <p>Cargando...</p>
       )}
       <input type='text' value={code}
-        onChange={(event) => {
-          setCode(event.target.value);
+        onChange={({target: {value}}) => {
+          setState({code: value});
         }}
-      placeholder='código de seguridad'/>
+        placeholder='código de seguridad'
+      />
       <button onClick={() => {
-        setError(false)
-        setLoading(true)
-        }}>
+        setState({loading: true});
+      }}>
         Comprobar
       </button>
     </div>
