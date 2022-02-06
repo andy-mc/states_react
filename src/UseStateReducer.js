@@ -1,46 +1,43 @@
 import React, {useEffect, useCallback} from "react";
-import { useStateMany } from "./hooks/useStateMany";
+import { UseReducer } from "./hooks/useReducer";
 const SECURITY_CODE = "paradigma";
 
-const UseState = ({name}) => {
-  const [state, setState] = useStateMany({
+const UseStateReducer = ({name}) => {
+  const [state, dispatch] = UseReducer({
     code:'',
     confirmed: false,
     deleted: false,
     loading: false,
     error: false,
   });
-
+  
   const {code, confirmed, deleted, loading, error} = state;
   
   const onConfirm = useCallback(() => {
-    setState({ confirmed: true, deleted: false, error: false, loading: false })
-  }, [setState])
+    dispatch({type: "Confirm"})
+  }, [dispatch])
 
   const onError = useCallback(() => {
-    setState({ error: true, loading: false })
-  }, [setState])
+    dispatch({type: "Error"})
+  }, [dispatch])
 
   const onWrite = (value)=> {
-    setState({code: value});
+    dispatch({
+      type: "Write",
+      payload: {code: value}
+    });
   }
 
   const onCheck = () => {
-    setState({loading: true});
+    dispatch({type: "Check"})
   }
 
   const onDelete = () => {
-    setState({confirmed: false, deleted: true})
+    dispatch({type: "Delete"})
   }
 
   const onReset = () => {
-    setState({
-      code:'',
-      confirmed: false,
-      deleted: false,
-      loading: false,
-      error: false,
-    })
+    dispatch({type: "Reset"})
   }
 
   useEffect(() => {
@@ -104,4 +101,4 @@ const UseState = ({name}) => {
   }
 }
 
-export {UseState};
+export {UseStateReducer};
