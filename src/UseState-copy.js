@@ -1,43 +1,46 @@
 import React, {useEffect, useCallback} from "react";
-import { UseReducer } from "./hooks/useReducer";
+import { useStateMany } from "./hooks/useStateMany";
 const SECURITY_CODE = "paradigma";
 
 const UseState = ({name}) => {
-  const [state, dispatch] = UseReducer({
+  const [state, setState] = useStateMany({
     code:'',
     confirmed: false,
     deleted: false,
     loading: false,
     error: false,
   });
-  
+
   const {code, confirmed, deleted, loading, error} = state;
   
   const onConfirm = useCallback(() => {
-    dispatch({type: "Confirm"})
-  }, [dispatch])
+    setState({ confirmed: true, deleted: false, error: false, loading: false })
+  }, [setState])
 
   const onError = useCallback(() => {
-    dispatch({type: "Error"})
-  }, [dispatch])
+    setState({ error: true, loading: false })
+  }, [setState])
 
   const onWrite = (value)=> {
-    dispatch({
-      type: "Write",
-      payload: {code: value}
-    });
+    setState({code: value});
   }
 
   const onCheck = () => {
-    dispatch({type: "Check"})
+    setState({loading: true});
   }
 
   const onDelete = () => {
-    dispatch({type: "Delete"})
+    setState({confirmed: false, deleted: true})
   }
 
   const onReset = () => {
-    dispatch({type: "Reset"})
+    setState({
+      code:'',
+      confirmed: false,
+      deleted: false,
+      loading: false,
+      error: false,
+    })
   }
 
   useEffect(() => {
