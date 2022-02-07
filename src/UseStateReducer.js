@@ -30,9 +30,7 @@ const UseStateReducer = ({name}) => {
   }
 
   const onCheck = () => dispatch({type: actionsTypes.check});
-
   const onDelete = () => dispatch({type: actionsTypes.delete});
-
   const onReset = () => dispatch({type: actionsTypes.reset});
 
   useEffect(() => {
