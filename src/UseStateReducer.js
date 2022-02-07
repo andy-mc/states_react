@@ -1,5 +1,6 @@
 import React, {useEffect, useCallback} from "react";
 import { UseReducer } from "./hooks/useReducer";
+import { actionsTypes } from "./actionsTypes";
 const SECURITY_CODE = "paradigma";
 
 const UseStateReducer = ({name}) => {
@@ -14,30 +15,30 @@ const UseStateReducer = ({name}) => {
   const {code, confirmed, deleted, loading, error} = state;
   
   const onConfirm = useCallback(() => {
-    dispatch({type: "Confirm"})
+    dispatch({type: actionsTypes.confirm})
   }, [dispatch])
 
   const onError = useCallback(() => {
-    dispatch({type: "Error"})
+    dispatch({type: actionsTypes.error})
   }, [dispatch])
 
   const onWrite = (value)=> {
     dispatch({
-      type: "Write",
+      type: actionsTypes.write,
       payload: {code: value}
     });
   }
 
   const onCheck = () => {
-    dispatch({type: "Check"})
+    dispatch({type: actionsTypes.check})
   }
 
   const onDelete = () => {
-    dispatch({type: "Delete"})
+    dispatch({type: actionsTypes.delete})
   }
 
   const onReset = () => {
-    dispatch({type: "Reset"})
+    dispatch({type: actionsTypes.reset})
   }
 
   useEffect(() => {

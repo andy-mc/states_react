@@ -1,29 +1,30 @@
 import { useReducer } from "react";
+import { actionsTypes } from "../../actionsTypes";
 
 const UseReducer = ( initial_state ) => {
   function reducer ( state, action ) {
     const mapActionState = ( payload = {} ) => ({
-      "Confirm": {
+      [actionsTypes.confirm]: {
         confirmed: true,
         deleted: false,
         error: false,
         loading: false
       },
-      "Error": { 
+      [actionsTypes.error]: { 
         error: true, 
         loading: false 
       },
-      "Write": { 
+      [actionsTypes.write]: { 
         code: payload.code
       },
-      "Check": { 
+      [actionsTypes.check]: { 
         loading: true
       },
-      "Delete": { 
+      [actionsTypes.delete]: { 
         confirmed: false, 
         deleted: true
       },
-      "Reset": {
+      [actionsTypes.reset]: {
         code:'',
         confirmed: false,
         deleted: false,
