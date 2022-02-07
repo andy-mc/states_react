@@ -22,7 +22,7 @@ const UseStateReducer = ({name}) => {
     dispatch({type: actionsTypes.error})
   }, [dispatch])
 
-  const onWrite = (value)=> {
+  const onWrite = ({target: {value}})=> {
     dispatch({
       type: actionsTypes.write,
       payload: {code: value}
@@ -66,13 +66,9 @@ const UseStateReducer = ({name}) => {
         )}
         <input type='text' value={code}
           placeholder='código de seguridad'
-          onChange={({target: {value}}) => {
-            onWrite(value)
-          }}
+          onChange={onWrite}
         />
-        <button onClick={() => {
-          onCheck()
-        }}>
+        <button onClick={onCheck}>
           Comprobar
         </button>
       </>
@@ -82,10 +78,10 @@ const UseStateReducer = ({name}) => {
       <>
         <h2>Eliminar {name}</h2>
         <p>¿Seguro que quieres eliminar {name}?</p>
-        <button onClick={() => {onReset()}}>
+        <button onClick={onReset}>
           No, volver
         </button>
-        <button onClick={() => {onDelete()}}>
+        <button onClick={onDelete}>
           Sí, eliminar
         </button>
       </>
@@ -94,7 +90,7 @@ const UseStateReducer = ({name}) => {
     return (
       <>
         <h2>{name} fue eliminado con éxito !!</h2>
-        <button onClick={() => {onReset()}}>
+        <button onClick={onReset}>
           Recuperar {name}
         </button>
       </>
